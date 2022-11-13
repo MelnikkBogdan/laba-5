@@ -1,0 +1,74 @@
+#include <iostream>
+#include <string>
+#include <list>
+using namespace std;
+ 
+class Smiley {
+ 
+private: 
+ 
+    double R;
+    double r;
+    double s;
+public:
+Smiley()
+{
+    this->r=0;
+    this->R=0;
+    this->s=0;
+}
+Smiley(double r , double R)
+{
+    this->r=r;
+    this->R=R;
+    this->s=((R*R)-(2*r*r))*3.14;
+}
+double getR() {
+            return R; 
+        }
+  double getr() {
+            return r; 
+        }
+  void setR(double R){
+            this-> R=R;
+  }
+ 
+  void setr(double r){
+            this->r=r;
+  }
+  Smiley operator +(Smiley x){
+     double  R1=this->R+x.R;
+     double r1=this->r+x.r;
+      Smiley newSmiley(r1,R1);
+       return newSmiley;
+  }
+ Smiley operator ++()// префіксна форма інкременту 
+   {
+
+    R++; 
+    r++;
+    return *this;
+    }
+ 
+   Smiley operator ++(int notused) // постфіксна форма інкременту
+	{
+		Smiley temp = *this;
+	    R++;
+	    r++;
+		return temp;
+	}
+	
+  friend ostream& operator <<(ostream& t, Smiley a);
+};  
+   ostream& operator <<(ostream& t, Smiley a)
+	{
+		t << "R =" << a.R << ", r =" << a.r << ", S =" << a.s << endl;
+		return t;
+	}
+  int main () {
+   Smiley a(3,12), b(2,6), c;
+   ++b;
+   cout<<b;
+   c=a+b;
+   cout <<c;
+}
